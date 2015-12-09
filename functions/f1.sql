@@ -1,6 +1,10 @@
+-- BUSINESS RULE
+
 --outbreak of ebola caused by Siamese cats.
 --Thus our shelter will no longer accept/buy
 --any Siamese cats from our suppliers
+
+
 
 create function fn_checkBreedType()
 returns int

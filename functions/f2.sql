@@ -1,16 +1,32 @@
-create function fn_checkCustAddress(@CustID int)
-returns int
-as
-begin
-    declare @result int = 0
-    if not exists(select * from CUSTOMER c 
-    join CUST_ADDRESS ca on ca.CustAddressID = c.CustAddressID
-    where ca.StreetAddress = null )
-        set @result = 1
+-- BUSINESS RULE
 
-    return @result
-end
+-- If inventory goes too low (below 5) we want to order more
+-- of that product
 
+CREATE FUNCTION fn_lowInventory (@ProductName VARCHAR(30))
+RETURNS INT
+AS
+BEGIN
+    DECLARE @Ret INT = 0
 
+    DECLARE @Incoming INT = (
+        SELECT SUM(VOI.Quantity) FROM VENDOR_ORDER_ITEM VOI
+        JOIN PRODUCT P
+            ON P.ProductID = VOI.ProductID
+        WHERE P.ProductName LIKE '%' + @ProductName + '%'
+    )
 
-SELECT dbo.fn_checkCustAddress (51)
+    DECLARE @Outgoing INT = (
+        SELECT SUM(PLI.Quantity) FROM PRODUCT_LINE_ITEM PLI
+        JOIN PRODUCT P
+            ON P.ProductID = PLI.ProductID
+        WHERE P.ProductName LIKE '%' + @ProductName + '%'
+    )
+
+    IF (@Incoming - @Outgoing) < 5
+        SET @Ret = 1
+
+    RETURN @Ret
+END
+
+SELECT dbo.fn_lowInventory('Balls')
