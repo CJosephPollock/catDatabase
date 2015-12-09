@@ -2,43 +2,32 @@
 
 --STORED PROCEDURE 6
 
---NOTE: Technically this is two stored procs but we felt that they go together and show a little
---      more complexity so we put them together
+--Insert into verdor order table and verdor order item table to keep track of things the store order from different vendors
 
--- Proc 1
-CREATE PROCEDURE MakeVendorOrder
-@VendorName varchar(50)
-
-AS
-DECLARE @date date = getDate()
-DECLARE @ID INT = (SELECT [VendorID] FROM [dbo].[VENDOR] WHERE [VendorName] LIKE '%' + @VendorName + '%')
-
-INSERT INTO [dbo].[VENDOR_ORDER]([VendorID],[OrderDate])
- 
-Values (@ID, @date)
- 
-Execute MakeVendorOrder '3M'
-Execute MakeVendorOrder 'Maxell'
-Execute MakeVendorOrder 'Ora Health'
-Execute MakeVendorOrder 'Pencil Grip'
-Execute MakeVendorOrder '3M'
-
-
--- Proc 2
-CREATE PROCEDURE MakeVendorOrderLineItem
-@ProdName varchar(50),
-@OrderID int,
-@Quantity int
+CREATE PROCEDURE insertOrderInfo
+@VenderName varchar(50),
+@Prodname varchar(50),
+@Quantity INT,
+@Date DATE
 
 AS
-declare @productID int = (select productID from [dbo].[PRODUCT] where [ProductName] = @ProdName)
+DECLARE @ID INT = (SELECT [VendorID] FROM [dbo].[VENDOR] WHERE [VendorName] LIKE '%' + @VenderName + '%')
+declare @ProductID int = (select [ProductID] from [dbo].[PRODUCT] where [ProductName]= @Prodname)
+DECLARE @VenderOrderID INT = (SELECT [VendorOrderID] FROM [dbo].[VENDOR_ORDER] WHERE [VendorID] = @ID and [OrderDate] = @Date)
+
+IF @venderOrderID IS NULL
+BEGIN
+
+INSERT INTO [dbo].[VENDOR_ORDER]([VendorID],[OrderDate]) 
+VALUES (@ID, @date)
+
+SET @VenderOrderID = (SELECT scope_identity())
+END
 
 INSERT INTO [dbo].[VENDOR_ORDER_ITEM]([VendorOrderID],[ProductID],[Quantity])
+VALUES(@VenderOrderID, @ProductID, @Quantity)
 
-VALUES(@OrderID, @productID, @Quantity)
 
-EXECUTE MakeVendorOrderLineItem 'Play Balls', 1, 10
-EXECUTE MakeVendorOrderLineItem 'The Stronghold Titanium Leash', 3, 10
-EXECUTE MakeVendorOrderLineItem 'The Greg Hay Master Collar', 4, 5
-EXECUTE MakeVendorOrderLineItem 'Yummy Bites Cat Food', 3, 20
+EXECUTE insertOrderInfo '3M', 'Play Balls', 10, '20140103'
+
 
