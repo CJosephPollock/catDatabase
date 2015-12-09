@@ -1,10 +1,12 @@
+-- Joe Pollock
+
 -- BUSINESS RULE
 
---outbreak of ebola caused by Siamese cats.
---Thus our shelter will no longer accept/buy
---any Siamese cats from our suppliers
+-- outbreak of ebola caused by Siamese cats.
+-- Thus our shelter will no longer accept/buy
+-- any Siamese cats from our suppliers
 
-
+-- FUNCTION
 
 create function fn_checkBreedType()
 returns int
@@ -18,6 +20,8 @@ begin
 end
 
 go
+
+-- CHECK CONSTRAINT
 
 alter table CAT 
 add constraint checkBreedType

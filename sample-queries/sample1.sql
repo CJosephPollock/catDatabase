@@ -1,3 +1,7 @@
+-- SAMPLE QUERY
+
+--Gets the most recently ordered cat
+
 SELECT TOP 1 CatName, SalesOrderDate FROM CAT_LINE_ITEM CLI
     JOIN CAT C
         ON CLI.CatID = C.CatID

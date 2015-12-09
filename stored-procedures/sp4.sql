@@ -1,8 +1,18 @@
+-- Jordan Hand
+
+
 --STORED PROCEDURE 4
 
---This procedure makes a customer order and then you can start ordering line items on this order. In practice you would call the MakeCustomerOrder prodecure and then you would make each line item with MakeCustomerOrderItem using the references SalesrOrderID you just created.
+-- This procedure makes a customer order and then you can start ordering line items on this order.
+-- In practice you would call the MakeCustomerOrder prodecure and then you would make each line item
+-- with MakeCustomerOrderItem using the references SalesrOrderID you just created.
+
+--NOTE: Technically this is two stored procs but we felt that they go together and show a little
+--      more complexity so we put them together
 
 GO
+
+-- Proc 1
 CREATE PROCEDURE MakeCustomerOrder
     @CustFname varchar(30),
     @CustLname varchar(30)
@@ -25,11 +35,15 @@ VALUES
     )
 GO
 
+-- EXECUTION
+
 EXECUTE dbo.MakeCustomerOrder 'Star', 'Saffo'
 
 
 
 GO
+
+-- Proc 2
 CREATE PROCEDURE MakeCustomerOrderItem
     @OrderID INT,
     @ProductName varchar(30),
@@ -49,5 +63,7 @@ VALUES
         @OrderID,
         @Quantity
     )
+
+-- EXECUTION
 
 EXECUTE MakeCustomerOrderItem 1, 'Play Balls', 6

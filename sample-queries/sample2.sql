@@ -1,15 +1,11 @@
---Find the high roller
-SELECT c.CustomerID as CustomerID, MAX(p.Price) as Price, MAX(pli.Quantity) as Quantity
+-- SAMPLE QUERY
 
-from CUSTOMER c 
+-- Gets the customer who has made the most orders
+SELECT TOP 1 c.CustomerID, C.FirstName, C.LastName, COUNT(*) AS OrderCount
 
-join SALES_ORDER so 
-on so.CustomerID = c.CustomerID
-
-join PRODUCT_LINE_ITEM pli 
-on pli.SalesOrderID = so.SalesOrderID
-
-join PRODUCT p 
-on p.ProductID = pli.ProductID
-
-group by c.CustomerID
+from SALES_ORDER SO
+    join CUSTOMER C 
+        on so.CustomerID = c.CustomerID
+WHERE C.CustomerID = SO.CustomerID
+group by c.CustomerID, C.FirstName, C.LastName
+ORDER BY OrderCount DESC

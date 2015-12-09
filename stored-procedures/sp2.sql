@@ -1,4 +1,7 @@
+-- Jordan Hand
+
 --STORED PROCEDURE 2
+
 --insert a new cat
 
 CREATE PROCEDURE InsertCat
@@ -40,6 +43,8 @@ BEGIN
             )
     END
 END
+
+-- EXECUTIONS
 
 EXECUTE InsertCat 'Fluffles', 'Burmese', '20151010', '3M'
 EXECUTE InsertCat 'Ash', 'American Wirehair', '20130302', '3M Stationery'

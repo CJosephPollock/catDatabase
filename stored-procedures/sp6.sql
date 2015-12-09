@@ -1,4 +1,11 @@
+-- TianAi Zhao
+
 --STORED PROCEDURE 6
+
+--NOTE: Technically this is two stored procs but we felt that they go together and show a little
+--      more complexity so we put them together
+
+-- Proc 1
 CREATE PROCEDURE MakeVendorOrder
 @VendorName varchar(50)
 
@@ -16,6 +23,8 @@ Execute MakeVendorOrder 'Ora Health'
 Execute MakeVendorOrder 'Pencil Grip'
 Execute MakeVendorOrder '3M'
 
+
+-- Proc 2
 CREATE PROCEDURE MakeVendorOrderLineItem
 @ProdName varchar(50),
 @OrderID int,

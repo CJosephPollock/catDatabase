@@ -1,4 +1,7 @@
+-- Joe Pollock
+
 --STORED PROCEDURE 3
+
 --adopt a cat SP
 CREATE procedure adoptACat(@salesOrderID int, @catID int) 
 as

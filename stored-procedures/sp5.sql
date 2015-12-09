@@ -1,5 +1,8 @@
+-- TianAi Zhao
+
 --STORED PROCEDURE 5
---This procedure will populate customer and customer address
+--This procedure will populate customer and customer address tables
+
 CREATE PROCEDURE GetCustName
 @Count INT
 AS
