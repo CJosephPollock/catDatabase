@@ -3,6 +3,10 @@
 --STORED PROCEDURE 5
 --This procedure will populate customer and customer address tables
 
+--Use data from Greg Hay
+--SELECT * INTO TEST
+--FROM CUSTOMER_BUILD.dbo.tblCUSTOMER
+
 CREATE PROCEDURE GetCustName
 @Count INT
 AS
