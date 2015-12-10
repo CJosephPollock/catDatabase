@@ -9,17 +9,18 @@
 -- FUNCTION
 
 CREATE function fn_checkCustAddress()
-returns int
-as
-begin
-    declare @result int = 0
+RETURNS INT
+AS
+BEGIN
+    DECLARE @result INT = 0
     IF EXISTS (
-    	select * from CUSTOMER C
-    	where C.CustAddressID = null)
-        	set @result = 1
+    	SELECT * FROM CUSTOMER C
+    	WHERE C.CustAddressID = null
+    )
+    SET @result = 1
 
-    return @result
-end
+    RETURN @result
+END
 
 -- CHECK CONSTRAINT
 
