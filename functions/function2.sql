@@ -2,8 +2,6 @@
 
 -- BUSINESS RULE
 
--- If inventory goes too low (below 5) we want to order more
--- of that product
 
 -- FUNCTION
 
@@ -12,10 +10,10 @@ returns int
 as
 begin
     declare @result int = 0
-    if not exists(select * from CUSTOMER c 
-    join CUST_ADDRESS ca on ca.CustAddressID = c.CustAddressID
-    where ca.StreetAddress = null )
-        set @result = 1
+    IF EXISTS (
+    	select * from CUSTOMER C
+    	where C.CustAddressID = null)
+        	set @result = 1
 
     return @result
 end
