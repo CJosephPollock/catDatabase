@@ -8,7 +8,7 @@
 
 -- FUNCTION
 
-CREATE function fn_checkCustAddress(@CustID int)
+CREATE function fn_checkCustAddress()
 returns int
 as
 begin
@@ -25,4 +25,4 @@ end
 
 ALTER TABLE SALES_ORDER WITH NOCHECK
 ADD CONSTRAINT ck_noAddress
-CHECK (dbo.fn_checkCustAddress(CustomerID) = 0)
+CHECK (dbo.fn_checkCustAddress() = 0)
