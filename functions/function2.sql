@@ -2,6 +2,9 @@
 
 -- BUSINESS RULE
 
+-- Customers without an address are not allowed to
+-- adopt a cat. We want to make sure our cats
+-- go to a good home!
 
 -- FUNCTION
 
