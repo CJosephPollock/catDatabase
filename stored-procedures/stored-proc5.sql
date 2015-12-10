@@ -34,12 +34,12 @@ SET @zip = (SELECT CustomerZIP FROM [dbo].[TEST]  WHERE CustomerID = @ID)
  
 INSERT INTO CUST_ADDRESS([StreetAddress], [CityName],[StateName],[ZipCode])
  
-Values (@Street, @State, @City, @zip)
+VALUES (@Street, @State, @City, @zip)
  
 SET @addressID = (SELECT scope_identity())
  
 INSERT INTO CUSTOMER(FirstName, LastName, [CustAddressID])
-values(@Fname, @Lname, @addressID)
+VALUES (@Fname, @Lname, @addressID)
  
 DELETE FROM TEST WHERE CustomerID = @ID
  
